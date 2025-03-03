@@ -5,6 +5,7 @@ class AppTheme {
   static final lightTheme = ThemeData(
     primaryColor: AppColors.primary,
     scaffoldBackgroundColor: AppColors.lightBackground,
+    fontFamily: 'Satoshi',
     brightness: Brightness.light,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -18,6 +19,7 @@ class AppTheme {
   );
   static final darkTheme = ThemeData(
     primaryColor: AppColors.primary,
+    fontFamily: 'Satoshi',
     scaffoldBackgroundColor: AppColors.darkBackground,
     brightness: Brightness.dark,
     elevatedButtonTheme: ElevatedButtonThemeData(
