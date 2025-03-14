@@ -7,6 +7,7 @@ import 'package:spotify_clone/core/configs/assets/app_image.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
 import 'package:spotify_clone/presentation/bloc/theme_cubit.dart';
+import 'package:spotify_clone/presentation/pages/auth.dart';
 import 'package:spotify_clone/presentation/widget/big_button.dart';
 
 class ChooseModePage extends StatelessWidget {
@@ -109,7 +110,16 @@ class ChooseModePage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 28),
-                BigButton(onPressed: () {}, text: 'Get Started', height: 70),
+                BigButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AuthPage()),
+                    );
+                  },
+                  text: 'Get Started',
+                  height: 70,
+                ),
               ],
             ),
           ),
