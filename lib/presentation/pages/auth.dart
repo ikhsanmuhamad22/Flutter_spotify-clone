@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:spotify_clone/common/helpers/is_dark_mode.dart';
 import 'package:spotify_clone/core/configs/assets/app_image.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
+import 'package:spotify_clone/presentation/pages/signup.dart';
 import 'package:spotify_clone/presentation/widget/big_button.dart';
 import 'package:spotify_clone/presentation/widget/custom_appbar.dart';
 
@@ -37,20 +39,12 @@ class AuthPage extends StatelessWidget {
                   SizedBox(height: 40),
                   Text(
                     'Enjoy Listening The Music',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 24),
                   Text(
                     'Spotify is a proprietary Swedish audio streaming and media services provider',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w100,
-                    ),
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w200),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 24),
@@ -58,7 +52,14 @@ class AuthPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: BigButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (contaxt) => SignupPage(),
+                              ),
+                            );
+                          },
                           text: 'Register',
                           height: 70,
                         ),
@@ -69,7 +70,14 @@ class AuthPage extends StatelessWidget {
                           onPressed: () {},
                           child: Text(
                             'Sign in',
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color:
+                                  context.isDarkMode
+                                      ? Colors.white
+                                      : Colors.black,
+                            ),
                           ),
                         ),
                       ),
