@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:spotify_clone/common/helpers/is_dark_mode.dart';
 import 'package:spotify_clone/core/configs/assets/app_image.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
+import 'package:spotify_clone/presentation/pages/signin.dart';
 import 'package:spotify_clone/presentation/pages/signup.dart';
 import 'package:spotify_clone/presentation/widget/big_button.dart';
 import 'package:spotify_clone/presentation/widget/custom_appbar.dart';
@@ -67,7 +68,13 @@ class AuthPage extends StatelessWidget {
                       SizedBox(width: 24),
                       Expanded(
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed:
+                              () => Navigator.push(
+                                (context),
+                                MaterialPageRoute(
+                                  builder: (context) => SigninPage(),
+                                ),
+                              ),
                           child: Text(
                             'Sign in',
                             style: TextStyle(

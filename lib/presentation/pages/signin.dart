@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_clone/common/helpers/is_dark_mode.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
-import 'package:spotify_clone/presentation/pages/signin.dart';
+import 'package:spotify_clone/presentation/pages/signup.dart';
 import 'package:spotify_clone/presentation/widget/big_button.dart';
 import 'package:spotify_clone/presentation/widget/custom_appbar.dart';
 import 'package:spotify_clone/presentation/widget/line_decoration.dart';
 import 'package:spotify_clone/presentation/widget/other_method_login.dart';
 
-class SignupPage extends StatelessWidget {
-  const SignupPage({super.key});
+class SigninPage extends StatelessWidget {
+  const SigninPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,20 +17,30 @@ class SignupPage extends StatelessWidget {
       appBar: CustomAppbar(logo: true),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+          padding: const EdgeInsets.symmetric(vertical: 70, horizontal: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _registerText(),
               _supportText(context),
               SizedBox(height: 20),
-              _formFullName(context),
-              SizedBox(height: 20),
               _formEmail(context),
               SizedBox(height: 20),
               _formPassword(context),
               SizedBox(height: 20),
-              BigButton(onPressed: () {}, text: 'Create Account', height: 70),
+              BigButton(onPressed: () {}, text: 'Login', height: 70),
+              TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: Size.zero),
+                child: Text(
+                  'Recovery password',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: context.isDarkMode ? Colors.white: Colors.black
+                    
+                  ),
+                ),
+              ),
               LineDecoration(),
               OtherMethodLogin(),
             ],
@@ -41,7 +52,7 @@ class SignupPage extends StatelessWidget {
 
   Widget _registerText() {
     return Text(
-      'Register',
+      'Login',
       style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
     );
   }
@@ -68,14 +79,6 @@ class SignupPage extends StatelessWidget {
     );
   }
 
-  Widget _formFullName(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: 'Full Name',
-      ).applyDefaults(Theme.of(context).inputDecorationTheme),
-    );
-  }
-
   Widget _formEmail(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
@@ -99,17 +102,13 @@ class SignupPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Do You Have an Account?',
+            'Not A Member?',
             style: TextStyle(fontWeight: FontWeight.w500),
           ),
           TextButton(
-            onPressed:
-                () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SigninPage()),
-                ),
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SignupPage())),
             child: Text(
-              'Sign in',
+              'Register',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
           ),
