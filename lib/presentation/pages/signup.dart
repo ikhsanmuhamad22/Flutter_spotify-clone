@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
+import 'package:spotify_clone/data/models/auth/create_user.dart';
+import 'package:spotify_clone/domain/usecases/auth/signup.dart';
+import 'package:spotify_clone/presentation/pages/root.dart';
 import 'package:spotify_clone/presentation/pages/signin.dart';
 import 'package:spotify_clone/presentation/widget/big_button.dart';
 import 'package:spotify_clone/presentation/widget/custom_appbar.dart';
 import 'package:spotify_clone/presentation/widget/line_decoration.dart';
 import 'package:spotify_clone/presentation/widget/other_method_login.dart';
+import 'package:spotify_clone/service_locator.dart';
 
 class SignupPage extends StatelessWidget {
-  const SignupPage({super.key});
+  SignupPage({super.key});
+
+  final TextEditingController _fullname = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +37,35 @@ class SignupPage extends StatelessWidget {
               SizedBox(height: 20),
               _formPassword(context),
               SizedBox(height: 20),
-              BigButton(onPressed: () {}, text: 'Create Account', height: 70),
+              BigButton(
+                onPressed: () async {
+                  var result = await sl<SignupUseCase>().call(
+                    params: CreateUser(
+                      fullname: _fullname.text.toString(),
+                      email: _email.text.toString(),
+                      password: _email.text.toString(),
+                    ),
+                  );
+                  result.fold(
+                    (ifLeft) {
+                      var snackbar = SnackBar(content: Text(ifLeft));
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    },
+                    (ifRight) {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => RootPage()),
+                        (route) => false,
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('account succesfully registed')),
+                      );
+                    },
+                  );
+                },
+                text: 'Create Account',
+                height: 70,
+              ),
               LineDecoration(),
               OtherMethodLogin(),
             ],
@@ -70,6 +106,7 @@ class SignupPage extends StatelessWidget {
 
   Widget _formFullName(BuildContext context) {
     return TextField(
+      controller: _fullname,
       decoration: InputDecoration(
         hintText: 'Full Name',
       ).applyDefaults(Theme.of(context).inputDecorationTheme),
@@ -78,6 +115,7 @@ class SignupPage extends StatelessWidget {
 
   Widget _formEmail(BuildContext context) {
     return TextField(
+      controller: _email,
       decoration: InputDecoration(
         hintText: 'Enter Email',
       ).applyDefaults(Theme.of(context).inputDecorationTheme),
@@ -86,6 +124,7 @@ class SignupPage extends StatelessWidget {
 
   Widget _formPassword(BuildContext context) {
     return TextField(
+      controller: _password,
       decoration: InputDecoration(
         hintText: 'Password',
       ).applyDefaults(Theme.of(context).inputDecorationTheme),
